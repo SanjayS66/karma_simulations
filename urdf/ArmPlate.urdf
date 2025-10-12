@@ -1775,13 +1775,6 @@
                     <max_angle>-2.873</max_angle>   
                     </horizontal>
 
-                    <!-- No vertical scan (pure 2D lidar) -->
-                    <!-- <vertical>
-                    <samples>0</samples>
-                    <resolution>0</resolution>
-                    <min_angle>0.0</min_angle>
-                    <max_angle>0.0</max_angle>
-                    </vertical> -->
                 </scan>
 
                 <range>
