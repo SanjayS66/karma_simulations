@@ -1805,15 +1805,14 @@
 
 
 
-
 <!-- ************************************************************** LIDAR RELATED LINKS,JOINTS,PLUGINS ENDS****************************************************************-->   
 
 
 
 
 <!-- ************************************************************** DRIVE PLUGIN ***************************************************************************************** -->
-<gazebo>
-  <plugin name="omni_drive_controller" filename="libgazebo_ros_omni_drive.so">
+<!-- <gazebo>
+  <plugin name="mecanum_drive_controller" filename="libgazebo_ros_control.so">
     <commandTopic>cmd_vel</commandTopic>
     <odometryTopic>odom</odometryTopic>
     <odometryFrame>odom</odometryFrame>
@@ -1834,7 +1833,14 @@
     <publishWheelJointState>true</publishWheelJointState>
     <publishWheelTF>false</publishWheelTF>
     </plugin>
-</gazebo>
+</gazebo> -->
+
+
+<!-- <gazebo>
+    <plugin name="gazebo_ros2_control" filename="libgazebo_ros2_control.so">
+        <parameters>$(find rcup_simulations)/config/mecanum_controllers.yaml</parameters>
+    </plugin>
+</gazebo> -->
 <!-- ************************************************************** DRIVE PLUGIN ENDS ***************************************************************************************** -->
 
 <!-- *************************************************************ROS2 CONTROL TAG ******************************************************************************************** -->
@@ -1843,7 +1849,8 @@
     <plugin>gazebo_ros2_control/GazeboSystem</plugin>
   </hardware>
 
-  <joint name="Wheel_motor_2_Revolute_105"> <command_interface name="velocity">
+  <joint name="Wheel_motor_2_Revolute_105"> 
+    <command_interface name="velocity">
       <param name="min">-10</param>
       <param name="max">10</param>
     </command_interface>
@@ -1860,7 +1867,8 @@
     <state_interface name="position"/>
   </joint>
 
-  <joint name="Wheel_motor_1_Revolute_107"> <command_interface name="velocity">
+  <joint name="Wheel_motor_1_Revolute_107"> 
+    <command_interface name="velocity">
       <param name="min">-10</param>
       <param name="max">10</param>
     </command_interface>
@@ -1878,5 +1886,6 @@
   </joint>
 
 </ros2_control>
+
 
 </robot>

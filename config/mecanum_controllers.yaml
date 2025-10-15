@@ -1,44 +1,48 @@
 # FILE: mecanum_controllers.yaml
 
+# The controller manager parameters are defined first.
 controller_manager:
   ros__parameters:
     update_rate: 30
-    use_sim_time: true
 
+    # Declare controllers managed by the controller manager
     joint_state_broadcaster:
       type: joint_state_broadcaster/JointStateBroadcaster
-
-    mecanum_drive_controller:
+    mecc_cont:
       type: mecanum_drive_controller/MecanumDriveController
 
-# Parameters for the Joint State Broadcaster
+
 joint_state_broadcaster:
   ros__parameters: {}
+  
 
-# Parameters for the Mecanum Drive Controller
-mecanum_drive_controller:
-  ros__parameters:
-    # --- THIS IS THE KEY CHANGE ---
-    # Use the 'joints' list, as your controller version likely requires it.
-    # The order is critical: FL, FR, RL, RR
-    joints:
-      - "Wheel_motor_2_Revolute_105"  # Front Left
-      - "Wheel_motor_4_Revolute_106"  # Front Right
-      - "Wheel_motor_1_Revolute_107"  # Rear Left
-      - "Wheel_motor_3_Revolute_108"  # Rear Right
+# The mecanum drive controller, with its own parameters.
+mecc_cont:
+  ros__parameters:   # Joint names must exactly match the names in your URDF file
+    front_left_wheel_name: "Wheel_motor_2_Revolute_105"
+    front_right_wheel_name: "Wheel_motor_4_Revolute_106"
+    rear_left_wheel_name: "Wheel_motor_1_Revolute_107"
+    rear_right_wheel_name: "Wheel_motor_3_Revolute_108"
 
-    # Kinematics and other parameters remain the same
+  #   # Physical properties of your robot
     wheel_separation_x: 0.559
     wheel_separation_y: 0.49
     wheel_radius: 0.075
-    
-    publish_rate: 50.0
-    odom_frame_id: odom
-    base_frame_id: base_footprint
 
-    linear.x.has_velocity_limits: true
-    linear.x.max_velocity: 1.0
-    linear.x.min_velocity: -1.0
-    angular.z.has_velocity_limits: true
-    angular.z.max_velocity: 1.0
-    angular.z.min_velocity: -1.0
+  #   # Odometry and TF settings
+    publish_rate: 50.0
+    odom_frame_id: "odom"
+    base_frame_id: "base_footprint"
+    enable_odom_tf: true
+
+  #   # Velocity limits using the correct nested YAML structure
+    linear:
+      x:
+        has_velocity_limits: true
+        max_velocity: 1.0
+        min_velocity: -1.0
+    angular:
+      z:
+        has_velocity_limits: true
+        max_velocity: 1.0
+        min_velocity: -1.0
