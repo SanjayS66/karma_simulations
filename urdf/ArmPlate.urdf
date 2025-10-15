@@ -1811,39 +1811,17 @@
 
 
 <!-- ************************************************************** DRIVE PLUGIN ***************************************************************************************** -->
-<!-- <gazebo>
-  <plugin name="mecanum_drive_controller" filename="libgazebo_ros_control.so">
-    <commandTopic>cmd_vel</commandTopic>
-    <odometryTopic>odom</odometryTopic>
-    <odometryFrame>odom</odometryFrame>
-    <robotBaseFrame>base_footprint</robotBaseFrame>
-    <updateRate>50.0</updateRate>
-    
-    <front_left_joint>Wheel_motor_2_Revolute_105</front_left_joint>
-    <front_right_joint>Wheel_motor_4_Revolute_106</front_right_joint>
-    <rear_left_joint>Wheel_motor_1_Revolute_107</rear_left_joint>
-    <rear_right_joint>Wheel_motor_3_Revolute_108</rear_right_joint>
-
-    <wheelSeparation>0.559</wheelSeparation>
-    <wheelDiameter>0.150</wheelDiameter>
-    <robotBaseFrame>base_footprint</robotBaseFrame>
-
-    <torque>1000</torque>
-    <publishOdom>true</publishOdom>
-    <publishWheelJointState>true</publishWheelJointState>
-    <publishWheelTF>false</publishWheelTF>
-    </plugin>
-</gazebo> -->
-
 
 <!-- <gazebo>
     <plugin name="gazebo_ros2_control" filename="libgazebo_ros2_control.so">
         <parameters>$(find rcup_simulations)/config/mecanum_controllers.yaml</parameters>
     </plugin>
 </gazebo> -->
+
 <!-- ************************************************************** DRIVE PLUGIN ENDS ***************************************************************************************** -->
 
 <!-- *************************************************************ROS2 CONTROL TAG ******************************************************************************************** -->
+<!-- ROS 2 Control hardware configuration for mecanum drive -->
 <ros2_control name="GazeboSystem" type="system">
   <hardware>
     <plugin>gazebo_ros2_control/GazeboSystem</plugin>
@@ -1851,8 +1829,8 @@
 
   <joint name="Wheel_motor_2_Revolute_105"> 
     <command_interface name="velocity">
-      <param name="min">-10</param>
-      <param name="max">10</param>
+      <!-- <param name="min">-10</param>
+      <param name="max">10</param> -->
     </command_interface>
     <state_interface name="velocity"/>
     <state_interface name="position"/>
@@ -1860,8 +1838,8 @@
 
   <joint name="Wheel_motor_4_Revolute_106">
     <command_interface name="velocity">
-      <param name="min">-10</param>
-      <param name="max">10</param>
+      <!-- <param name="min">-10</param>
+      <param name="max">10</param> -->
     </command_interface>
     <state_interface name="velocity"/>
     <state_interface name="position"/>
@@ -1869,8 +1847,8 @@
 
   <joint name="Wheel_motor_1_Revolute_107"> 
     <command_interface name="velocity">
-      <param name="min">-10</param>
-      <param name="max">10</param>
+      <!-- <param name="min">-10</param>
+      <param name="max">10</param> -->
     </command_interface>
     <state_interface name="velocity"/>
     <state_interface name="position"/>
@@ -1878,8 +1856,8 @@
 
   <joint name="Wheel_motor_3_Revolute_108">
     <command_interface name="velocity">
-      <param name="min">-10</param>
-      <param name="max">10</param>
+      <!-- <param name="min">-10</param>
+      <param name="max">10</param> -->
     </command_interface>
     <state_interface name="velocity"/>
     <state_interface name="position"/>

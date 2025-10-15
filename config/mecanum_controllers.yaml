@@ -19,23 +19,25 @@ joint_state_broadcaster:
 # The mecanum drive controller, with its own parameters.
 mecc_cont:
   ros__parameters:   # Joint names must exactly match the names in your URDF file
-    front_left_wheel_name: "Wheel_motor_2_Revolute_105"
-    front_right_wheel_name: "Wheel_motor_4_Revolute_106"
-    rear_left_wheel_name: "Wheel_motor_1_Revolute_107"
-    rear_right_wheel_name: "Wheel_motor_3_Revolute_108"
+    front_left_wheel_joint: "Wheel_motor_2_Revolute_105"
+    front_right_wheel_joint: "Wheel_motor_4_Revolute_106"
+    rear_left_wheel_joint: "Wheel_motor_1_Revolute_107"
+    rear_right_wheel_joint: "Wheel_motor_3_Revolute_108"
 
-  #   # Physical properties of your robot
+  # Physical properties of your robot
     wheel_separation_x: 0.559
     wheel_separation_y: 0.49
     wheel_radius: 0.075
 
-  #   # Odometry and TF settings
+  # Odometry and TF settings
     publish_rate: 50.0
     odom_frame_id: "odom"
     base_frame_id: "base_footprint"
     enable_odom_tf: true
+    
+    kinematics_type: "kinematics"  # or "kinematics_inverse"
 
-  #   # Velocity limits using the correct nested YAML structure
+  # Velocity limits using the correct nested YAML structure
     linear:
       x:
         has_velocity_limits: true
