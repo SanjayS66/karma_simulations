@@ -1812,11 +1812,11 @@
 
 <!-- ************************************************************** DRIVE PLUGIN ***************************************************************************************** -->
 
-<!-- <gazebo>
+<gazebo>
     <plugin name="gazebo_ros2_control" filename="libgazebo_ros2_control.so">
-        <parameters>$(find rcup_simulations)/config/mecanum_controllers.yaml</parameters>
+        <parameters>/home/sanjay/ros2_workspaces/rcup_simul/src/rcup_simulations/config/mecanum_controllers.yaml</parameters>
     </plugin>
-</gazebo> -->
+</gazebo>
 
 <!-- ************************************************************** DRIVE PLUGIN ENDS ***************************************************************************************** -->
 
