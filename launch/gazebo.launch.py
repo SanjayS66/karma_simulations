@@ -72,21 +72,24 @@ def generate_launch_description():
             '-x', x_pose,
             '-y', y_pose,
             '-z', '0.2'
+            # '-R', '0.0',
+            # '-P', '0.0',
+            # '-Y', '1.5708' 
         ],
         output='screen'
     )
 
     #no need for this as we already have the ros2_control tag inside the urdf!!!
     # It reads the URDF and your controller config file to run the controllers
-    # controller_manager_node = Node(
-    #     package="controller_manager",
-    #     executable="ros2_control_node",
-    #     parameters=[
-    #         {'robot_description': robot_description_xml},
-    #         controllers_yaml_path,  {'use_sim_time': True}              # Path to your controller config
-    #     ],
-    #     output = 'screen'
-    # )
+    controller_manager_node = Node(
+        package="controller_manager",
+        executable="ros2_control_node",
+        parameters=[
+            {'robot_description': robot_description_xml},
+            controllers_yaml_path,  {'use_sim_time': True}              # Path to your controller config
+        ],
+        output = 'screen'
+    )
     
     # ***********************************************************************************
     
@@ -94,7 +97,7 @@ def generate_launch_description():
     spawn_joint_state_broadcaster = Node(
         package='controller_manager',
         executable='spawner',
-        arguments=['joint_state_broadcaster'],
+        arguments=['joint_state_broadcaster', '--controller-manager', '/controller_manager'],
         output='screen'
     )
     
@@ -151,7 +154,7 @@ def generate_launch_description():
         robot_state_publisher_node,
         
         # ADD THE CONTROLLER MANAGER  TO THE LAUNCH
-        # controller_manager_node,
+        controller_manager_node,
 
         # Spawning logic
         spawn_entity_node,

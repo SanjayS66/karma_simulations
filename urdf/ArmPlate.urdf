@@ -278,7 +278,7 @@
     <link name="base_footprint"/>
 
     <joint name="base_to_robot" type="fixed">
-    <origin xyz="0.0 0.35 -0.07" rpy="1.57 0.0 0.0" />
+    <origin xyz="0.0 0.35 -0.07" rpy="1.57 0.0 1.57" />
     <parent link="base_footprint" />
     <child link="base_final-v3" />
     </joint>
@@ -1812,13 +1812,33 @@
 
 <!-- ************************************************************** DRIVE PLUGIN ***************************************************************************************** -->
 
-<gazebo>
+<!-- <gazebo>
     <plugin name="gazebo_ros2_control" filename="libgazebo_ros2_control.so">
         <parameters>/home/sanjay/ros2_workspaces/rcup_simul/src/rcup_simulations/config/mecanum_controllers.yaml</parameters>
     </plugin>
-</gazebo>
+</gazebo> -->
 
 <!-- ************************************************************** DRIVE PLUGIN ENDS ***************************************************************************************** -->
+
+<!-- ************************************************************** PLANAR MOVE PLUGIN ***************************************************************************************** -->
+<gazebo>
+  <plugin name="planar_move" filename="libgazebo_ros_planar_move.so">
+    <!-- Replace this with your base link name -->
+    <ros>
+      <namespace>/</namespace>
+    </ros>
+    <body_name>base_footprint</body_name>
+    <update_rate>100.0</update_rate>
+    <!-- Topic to subscribe to for geometry_msgs/Twist commands -->
+    <topic>cmd_vel</topic>
+    <!-- Optional: Limit max velocities -->
+    <max_linear_acceleration>5.0</max_linear_acceleration>
+    <max_angular_acceleration>5.0</max_angular_acceleration>
+  </plugin>
+</gazebo>
+<!-- ************************************************************** PLANAR MOVE PLUGIN ENDS ***************************************************************************************** -->
+
+
 
 <!-- *************************************************************ROS2 CONTROL TAG ******************************************************************************************** -->
 <!-- ROS 2 Control hardware configuration for mecanum drive -->
