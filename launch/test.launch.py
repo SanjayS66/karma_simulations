@@ -17,7 +17,7 @@ def generate_launch_description():
     urdf_path = os.path.join(pkg_share, 'urdf', 'ArmPlate.urdf')
     
     # Path to the controller config file
-    controllers_yaml_path = os.path.join(pkg_share, 'config', 'mecanum_controllers.yaml')
+    controllers_yaml_path = os.path.join(pkg_share, 'config', 'diff_drive_controllers.yaml')
     # controllers_yaml_path = os.path.join(pkg_share, 'config', 'diff_drive_controllers.yaml')
 
     # --- Robot Description in XML---
@@ -79,50 +79,17 @@ def generate_launch_description():
         output='screen'
     )
 
-    # # It reads the URDF and your controller config file to run the controllers
-    controller_manager_node = Node(
+
+    diff_drive_spawner = Node(
         package="controller_manager",
-        executable="ros2_control_node",
-        parameters=[
-            {'robot_description': robot_description_xml},
-            controllers_yaml_path,  
-            {'use_sim_time': True}              # Path to your controller config
-        ],
-        output = 'screen'
+        executable="spawner",
+        arguments=["diff_cont"],
     )
 
-    # ***********************************************************************************
-    
-    # --- Spawner Nodes  ---
-    spawn_joint_state_broadcaster = Node( 
-        package='controller_manager',
-        executable='spawner',
-        arguments=['joint_state_broadcaster', '--controller-manager', '/controller_manager'],
-        output='screen'
-    )
-    
-    spawn_mecanum_controller = Node(
-        package='controller_manager',
-        executable='spawner',
-        arguments=['mecc_cont', '--controller-manager', '/controller_manager'],
-        output='screen'
-    )
-
-    # Event handler to spawn controllers after the robot is spawned
-    spawn_controllers_after_robot = RegisterEventHandler(
-        event_handler=OnProcessExit(
-            target_action=spawn_entity_node,
-            on_exit=[
-                TimerAction(
-                    period=4.0,  # Wait 2 seconds for Gazebo plugin to initialize
-                    actions=[spawn_joint_state_broadcaster]
-                ),
-                TimerAction(
-                    period=5.0,  # Wait 3 seconds before mecanum controller
-                    actions=[spawn_mecanum_controller]
-                )
-            ]
-        )
+    joint_broad_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["joint_broad"],
     )
 
 
@@ -140,7 +107,7 @@ def generate_launch_description():
         # Core nodes
         robot_state_publisher_node,
         
-        controller_manager_node,
-        spawn_controllers_after_robot,
+        diff_drive_spawner,
+        joint_broad_spawner
     ]
     )

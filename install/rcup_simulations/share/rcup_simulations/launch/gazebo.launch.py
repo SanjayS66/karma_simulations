@@ -80,50 +80,50 @@ def generate_launch_description():
     )
 
     # # It reads the URDF and your controller config file to run the controllers
-    controller_manager_node = Node(
-        package="controller_manager",
-        executable="ros2_control_node",
-        parameters=[
-            {'robot_description': robot_description_xml},
-            controllers_yaml_path,  
-            {'use_sim_time': True}              # Path to your controller config
-        ],
-        output = 'screen'
-    )
+    # controller_manager_node = Node(
+    #     package="controller_manager",
+    #     executable="ros2_control_node",
+    #     parameters=[
+    #         {'robot_description': robot_description_xml},
+    #         controllers_yaml_path,  
+    #         {'use_sim_time': True}              # Path to your controller config
+    #     ],
+    #     output = 'screen'
+    # )
 
     # ***********************************************************************************
     
-    # --- Spawner Nodes  ---
-    spawn_joint_state_broadcaster = Node( 
-        package='controller_manager',
-        executable='spawner',
-        arguments=['joint_state_broadcaster', '--controller-manager', '/controller_manager'],
-        output='screen'
-    )
+    # # --- Spawner Nodes  ---
+    # spawn_joint_state_broadcaster = Node( 
+    #     package='controller_manager',
+    #     executable='spawner',
+    #     arguments=['joint_state_broadcaster', '--controller-manager', '/controller_manager'],
+    #     output='screen'
+    # )
     
-    spawn_mecanum_controller = Node(
-        package='controller_manager',
-        executable='spawner',
-        arguments=['mecc_cont', '--controller-manager', '/controller_manager'],
-        output='screen'
-    )
+    # spawn_mecanum_controller = Node(
+    #     package='controller_manager',
+    #     executable='spawner',
+    #     arguments=['mecc_cont', '--controller-manager', '/controller_manager'],
+    #     output='screen'
+    # )
 
-    # Event handler to spawn controllers after the robot is spawned
-    spawn_controllers_after_robot = RegisterEventHandler(
-        event_handler=OnProcessExit(
-            target_action=spawn_entity_node,
-            on_exit=[
-                TimerAction(
-                    period=4.0,  # Wait 2 seconds for Gazebo plugin to initialize
-                    actions=[spawn_joint_state_broadcaster]
-                ),
-                TimerAction(
-                    period=5.0,  # Wait 3 seconds before mecanum controller
-                    actions=[spawn_mecanum_controller]
-                )
-            ]
-        )
-    )
+    # # Event handler to spawn controllers after the robot is spawned
+    # spawn_controllers_after_robot = RegisterEventHandler(
+    #     event_handler=OnProcessExit(
+    #         target_action=spawn_entity_node,
+    #         on_exit=[
+    #             TimerAction(
+    #                 period=4.0,  # Wait 2 seconds for Gazebo plugin to initialize
+    #                 actions=[spawn_joint_state_broadcaster]
+    #             ),
+    #             TimerAction(
+    #                 period=5.0,  # Wait 3 seconds before mecanum controller
+    #                 actions=[spawn_mecanum_controller]
+    #             )
+    #         ]
+    #     )
+    # )
 
 
     # --- LaunchDescription Assembly ---
@@ -140,7 +140,10 @@ def generate_launch_description():
         # Core nodes
         robot_state_publisher_node,
         
-        controller_manager_node,
-        spawn_controllers_after_robot,
+        # ADD THE CONTROLLER MANAGER  TO THE LAUNCH
+        # controller_manager_node,
+
+        # # Spawning logic
+        # spawn_controllers_after_robot,
     ]
     )

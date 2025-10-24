@@ -1,0 +1,6 @@
+source;share/rcup_simulations/hook/pythonpath.ps1
+source;share/rcup_simulations/hook/pythonpath.dsv
+source;share/rcup_simulations/hook/pythonpath.sh
+source;share/rcup_simulations/hook/ament_prefix_path.ps1
+source;share/rcup_simulations/hook/ament_prefix_path.dsv
+source;share/rcup_simulations/hook/ament_prefix_path.sh
