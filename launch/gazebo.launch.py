@@ -17,8 +17,8 @@ def generate_launch_description():
     urdf_path = os.path.join(pkg_share, 'urdf', 'ArmPlate.urdf')
     
     # Path to the controller config file
-    controllers_yaml_path = os.path.join(pkg_share, 'config', 'mecanum_controllers.yaml')
-    # controllers_yaml_path = os.path.join(pkg_share, 'config', 'diff_drive_controllers.yaml')
+    # controllers_yaml_path = os.path.join(pkg_share, 'config', 'mecanum_controllers.yaml')
+    controllers_yaml_path = os.path.join(pkg_share, 'config', 'diff_drive_controllers.yaml')
 
     # --- Robot Description in XML---
     with open(urdf_path, 'r') as infp:
@@ -86,7 +86,7 @@ def generate_launch_description():
         parameters=[
             {'robot_description': robot_description_xml},
             controllers_yaml_path,  
-            {'use_sim_time': True}              # Path to your controller config
+            {'use_sim_time': True}              
         ],
         output = 'screen'
     )
@@ -114,11 +114,11 @@ def generate_launch_description():
             target_action=spawn_entity_node,
             on_exit=[
                 TimerAction(
-                    period=4.0,  # Wait 2 seconds for Gazebo plugin to initialize
+                    period=4.0,  
                     actions=[spawn_joint_state_broadcaster]
                 ),
                 TimerAction(
-                    period=5.0,  # Wait 3 seconds before mecanum controller
+                    period=5.0,  
                     actions=[spawn_mecanum_controller]
                 )
             ]

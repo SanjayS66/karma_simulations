@@ -1875,7 +1875,7 @@
     <state_interface name="position"/>
   </joint>
 
-  <joint name="Wheel_motor_3_Revolute_108">
+  <joint name="Wheel_motor_3_Revolute_108"> 
     <command_interface name="velocity">
         <param name="min">-10</param>
         <param name="max">10</param>
@@ -1887,13 +1887,15 @@
 </ros2_control>
 
 <!-- ************************************************************** DRIVE PLUGIN ***************************************************************************************** -->
-
+ 
 <!-- <gazebo>
   <plugin name="gazebo_ros2_control" filename="libgazebo_ros2_control.so">
-    <parameters>$(find rcup_simulations)/config/diff_drive_controllers.yaml</parameters>
+    <parameters>$(find rcup_simulations)/config/mecanum_controllers.yaml</parameters>
   </plugin>
 </gazebo> -->
 
+
+<!-- <parameters>$(find rcup_simulations)/config/diff_drive_controllers.yaml</parameters> -->
 <!-- ************************************************************** DRIVE PLUGIN ENDS ***************************************************************************************** -->
 
 </robot>
